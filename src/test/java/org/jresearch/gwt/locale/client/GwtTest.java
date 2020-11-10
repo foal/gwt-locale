@@ -1,7 +1,5 @@
 package org.jresearch.gwt.locale.client;
 
-import java.time.ZoneId;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +16,6 @@ public class GwtTest extends GWTTestCase {
 	@Override
 	public String getModuleName() {
 		return "org.jresearch.gwt.locale.module";
-	}
-
-	@Test
-	public void testTzdbProviderInit() {
-		ZoneId.of("Europe/Paris");
 	}
 
 	@Test

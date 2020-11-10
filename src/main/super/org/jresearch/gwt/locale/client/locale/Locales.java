@@ -1,4 +1,4 @@
-package org.jresearch.threetenbp.gwt.client.locale;
+package org.jresearch.gwt.locale.client.locale;
 
 import java.util.Locale;
 
