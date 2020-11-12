@@ -1,5 +1,7 @@
 package org.jresearch.gwt.locale.client;
 
+import org.junit.Test;
+
 import com.google.gwt.junit.client.GWTTestCase;
 
 
@@ -12,6 +14,10 @@ public class GwtSupportTest extends GWTTestCase {
 	@Override
 	public String getModuleName() {
 		return "org.jresearch.gwt.locale.module";
+	}
+
+	@Test
+	public void testPlaceholder() {
 	}
 
 }

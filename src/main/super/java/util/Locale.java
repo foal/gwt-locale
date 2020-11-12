@@ -1,9 +1,16 @@
 package java.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gwt.i18n.client.LocaleInfo;
+import com.nimbusds.langtag.LangTag;
+import com.nimbusds.langtag.LangTagException;
 
 @SuppressWarnings("nls")
 public final class Locale {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(Locale.class);
 
 	/** Constant from JDK */
 	public static final Locale ENGLISH = new Locale("en");
@@ -139,6 +146,25 @@ public final class Locale {
 			languageTag = to('-');
 		}
 		return languageTag;
+	}
+
+	public static Locale forLanguageTag(String languageTag) {
+		try {
+			LangTag tag = LangTag.parse(languageTag);
+			String language = nullToEmpty(tag.getLanguage());
+			String region = nullToEmpty(tag.getRegion());
+			String script = nullToEmpty(tag.getScript());
+			String[] variants = tag.getVariants();
+			String variant = variants == null || variants.length == 0 ? "" : variants[0];
+			return new Locale(language, region, script, variant);
+		} catch (LangTagException e) {
+			LOGGER.error("Error while parse language tag {}: {}. Fallback to ROOT", languageTag, e.getMessage(), e);
+			return ROOT;
+		}
+	}
+
+	private static String nullToEmpty(String str) {
+		return str == null ? "" : str;
 	}
 
 	public String to(char delimeter) {
