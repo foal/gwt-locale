@@ -55,6 +55,7 @@
 						<ignoredUnusedDeclaredDependency>com.google.jsinterop:base</ignoredUnusedDeclaredDependency>
 						<ignoredUnusedDeclaredDependency>org.jresearch.gwt.time:org.jresearch.gwt.time.apt.annotation</ignoredUnusedDeclaredDependency>
 						<ignoredUnusedDeclaredDependency>org.jresearch.gwt.languageTag:org.jresearch.gwt.languageTag</ignoredUnusedDeclaredDependency>
+						<ignoredUnusedDeclaredDependency>com.nimbusds:lang-tag</ignoredUnusedDeclaredDependency>
 					</ignoredUnusedDeclaredDependencies>
 				</configuration>
 			</plugin>
