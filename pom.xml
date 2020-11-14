@@ -12,8 +12,8 @@
 	<artifactId>org.jresearch.gwt.locale</artifactId>
 	<packaging>gwt-lib</packaging>
 
-	<name>JRS: GWT emulation for java.util.Location class</name>
-	<description>RS: GWT emulation for java.util.Location class</description>
+	<name>JRS: GWT emulation for java.util.Locale class</name>
+	<description>JRS: GWT emulation for java.util.Locale class</description>
 	<version>1.0.0-SNAPSHOT</version>
 	<url>https://github.com/foal/gwt-locale</url>
 
@@ -32,18 +32,6 @@
 				<configuration>
 					<!-- <source>13</source>
 					<target>13</target> -->
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.immutables</groupId>
-							<artifactId>value</artifactId>
-							<version>${immutables.ver}</version>
-						</path>
-						<path>
-							<groupId>org.jresearch.gwt.time</groupId>
-							<artifactId>org.jresearch.gwt.time.apt.processor</artifactId>
-							<version>${time.apt.ver}</version>
-						</path>
-					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -51,11 +39,7 @@
 				<!-- To correct work of GWT Super source -->
 				<configuration>
 					<ignoredUnusedDeclaredDependencies>
-						<ignoredUnusedDeclaredDependency>org.dominokit:domino-slf4j-logger</ignoredUnusedDeclaredDependency>
-						<ignoredUnusedDeclaredDependency>com.google.jsinterop:base</ignoredUnusedDeclaredDependency>
-						<ignoredUnusedDeclaredDependency>org.jresearch.gwt.time:org.jresearch.gwt.time.apt.annotation</ignoredUnusedDeclaredDependency>
 						<ignoredUnusedDeclaredDependency>org.jresearch.gwt.languageTag:org.jresearch.gwt.languageTag</ignoredUnusedDeclaredDependency>
-						<ignoredUnusedDeclaredDependency>com.nimbusds:lang-tag</ignoredUnusedDeclaredDependency>
 					</ignoredUnusedDeclaredDependencies>
 				</configuration>
 			</plugin>
@@ -77,35 +61,23 @@
 	</build>
 
 	<!-- ==================================================================== -->
+	<properties>
+		<languageTag.ver>1.0.0-SNAPSHOT</languageTag.ver>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.jresearch.gwt.languageTag</groupId>
 			<artifactId>org.jresearch.gwt.languageTag</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${languageTag.ver}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.nimbusds</groupId>
 			<artifactId>lang-tag</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.jresearch.gwt.time</groupId>
-			<artifactId>org.jresearch.gwt.time.apt.annotation</artifactId>
-			<version>${time.apt.ver}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.dominokit</groupId>
-			<artifactId>domino-slf4j-logger</artifactId>
-			<version>${gwt-slf4j.ver}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -138,15 +110,5 @@
 			<version>9.2.14.v20151106</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.google.jsinterop</groupId>
-			<artifactId>base</artifactId>
-		</dependency>
 	</dependencies>
-
-
-	<properties>
-		<gwt-slf4j.ver>1.0.0</gwt-slf4j.ver>
-		<time.apt.ver>2.0.4-SNAPSHOT</time.apt.ver>
-	</properties>
 </project>

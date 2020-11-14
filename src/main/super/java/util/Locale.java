@@ -1,48 +1,45 @@
 package java.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.jresearch.gwt.locale.client.locale.LocaleRegistry;
 
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.nimbusds.langtag.LangTag;
 import com.nimbusds.langtag.LangTagException;
+import com.nimbusds.langtag.ReadOnlyLangTag;
 
 @SuppressWarnings("nls")
 public final class Locale {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Locale.class);
-
 	/** Constant from JDK */
-	public static final Locale ENGLISH = new Locale("en");
-	public static final Locale FRENCH = new Locale("fr");
-	public static final Locale GERMAN = new Locale("de");
-	public static final Locale ITALIAN = new Locale("it");
-	public static final Locale JAPANESE = new Locale("ja");
-	public static final Locale KOREAN = new Locale("ko");
-	public static final Locale CHINESE = new Locale("zh");
-	public static final Locale SIMPLIFIED_CHINESE = new Locale("zh", "CN");
-	public static final Locale TRADITIONAL_CHINESE = new Locale("zh", "TW");
-	public static final Locale FRANCE = new Locale("fr", "FR");
-	public static final Locale GERMANY = new Locale("de", "DE");
-	public static final Locale ITALY = new Locale("it", "IT");
-	public static final Locale JAPAN = new Locale("ja", "JP");
-	public static final Locale KOREA = new Locale("ko", "KR");
-	public static final Locale UK = new Locale("en", "GB");
-	public static final Locale US = new Locale("en", "US");
-	public static final Locale CANADA = new Locale("en", "CA");
-	public static final Locale CANADA_FRENCH = new Locale("fr", "CA");
-	public static final Locale ROOT = new Locale("");
+	public static final Locale ENGLISH = LocaleRegistry.register("en");
+	public static final Locale FRENCH = LocaleRegistry.register("fr");
+	public static final Locale GERMAN = LocaleRegistry.register("de");
+	public static final Locale ITALIAN = LocaleRegistry.register("it");
+	public static final Locale JAPANESE = LocaleRegistry.register("ja");
+	public static final Locale KOREAN = LocaleRegistry.register("ko");
+	public static final Locale CHINESE = LocaleRegistry.register("zh");
+	public static final Locale SIMPLIFIED_CHINESE = LocaleRegistry.register("zh", "CN");
+	public static final Locale TRADITIONAL_CHINESE = LocaleRegistry.register("zh", "TW");
+	public static final Locale FRANCE = LocaleRegistry.register("fr", "FR");
+	public static final Locale GERMANY = LocaleRegistry.register("de", "DE");
+	public static final Locale ITALY = LocaleRegistry.register("it", "IT");
+	public static final Locale JAPAN = LocaleRegistry.register("ja", "JP");
+	public static final Locale KOREA = LocaleRegistry.register("ko", "KR");
+	public static final Locale UK = LocaleRegistry.register("en", "GB");
+	public static final Locale US = LocaleRegistry.register("en", "US");
+	public static final Locale CANADA = LocaleRegistry.register("en", "CA");
+	public static final Locale CANADA_FRENCH = LocaleRegistry.register("fr", "CA");
+	public static final Locale ROOT = LocaleRegistry.register("");
 	public static final Locale CHINA = SIMPLIFIED_CHINESE;
 	public static final Locale PRC = SIMPLIFIED_CHINESE;
 	public static final Locale TAIWAN = TRADITIONAL_CHINESE;
 
 	private static Locale defaultLocale = ROOT;
 
-	private final String language;
-	private final String region;
-	private final String variant;
-	private final String script;
-	private String languageTag;
+	private final ReadOnlyLangTag languageTag;
 
 	static {
 		String localeName = LocaleInfo.getCurrentLocale().getLocaleName();
@@ -58,14 +55,37 @@ public final class Locale {
 		}
 	}
 
+	private Locale(LangTag langTag) {
+		try {
+			languageTag = LangTag.parse(langTag.toString());
+		} catch (LangTagException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
 	public Locale(String language, String region, String script, String variant) {
 		if (language == null || script == null || region == null || variant == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You can't initialize Locale with null values");
 		}
-		this.language = language;
-		this.region = region;
-		this.variant = variant;
-		this.script = script;
+		if (language.isEmpty()) {
+			languageTag = null;
+		} else {
+			try {
+				LangTag lg = new LangTag(language);
+				if (!region.isEmpty()) {
+					lg.setRegion(region);
+				}
+				if (!script.isEmpty()) {
+					lg.setScript(script);
+				}
+				if (!variant.isEmpty()) {
+					lg.setVariants(variant);
+				}
+				languageTag = lg;
+			} catch (LangTagException e) {
+				throw new IllegalArgumentException(e);
+			}
+		}
 	}
 
 	public Locale(String language, String region, String script) {
@@ -89,77 +109,115 @@ public final class Locale {
 	}
 
 	public static Locale[] getAvailableLocales() {
-		return org.jresearch.gwt.locale.client.cldr.LocaleInfo.LOCALES;
+		return LocaleRegistry.getRegisteredLocations();
 	}
 
 	public String getLanguage() {
-		return language;
+		return languageTag == null ? "" : languageTag.getLanguage();
 	}
 
 	public String getScript() {
-		return script;
+		return languageTag == null ? "" : nullToEmpty(languageTag.getScript());
 	}
 
 	public String getCountry() {
-		return region;
+		return languageTag == null ? "" : nullToEmpty(languageTag.getRegion());
 	}
 
 	public String getVariant() {
-		return variant;
+		if (languageTag == null) {
+			return "";
+		}
+		String[] variants = languageTag.getVariants();
+		return variants == null || variants.length == 0 ? "" : variants[0];
 	}
 
 	public boolean hasExtensions() {
-		return false;
+		return languageTag != null && languageTag.getExtensions() != null && languageTag.getExtensions().length != 0;
 	}
 
 	public Locale stripExtensions() {
+		if (hasExtensions()) {
+			try {
+				LangTag tag = LangTag.parse(languageTag.toString());
+				tag.setExtensions((String[]) null);
+				LocaleRegistry.lookup(tag).orElseGet(() -> new Locale(tag));
+			} catch (LangTagException e) {
+				throw new IllegalStateException(e);
+			}
+		}
 		return this;
 	}
 
 	public String getExtension(char key) {
+		if (hasExtensions()) {
+			return Stream.of(languageTag.getExtensions())
+					.filter(e -> e.charAt(0) == key)
+					.findAny()
+					.orElse(null);
+		}
 		return null;
 	}
 
+	@SuppressWarnings("boxing")
 	public Set<Character> getExtensionKeys() {
-		return Collections.emptySet();
-	}
-
-	public Set<String> getUnicodeLocaleAttributes() {
-		return Collections.emptySet();
-	}
-
-	public String getUnicodeLocaleType(String key) {
-		return null;
-	}
-
-	public Set<String> getUnicodeLocaleKeys() {
+		if (hasExtensions()) {
+			return Stream.of(languageTag.getExtensions())
+					.map(e -> e.charAt(0))
+					.collect(Collectors.toSet());
+		}
 		return Collections.emptySet();
 	}
 
 	@Override
 	public final String toString() {
-		return to('_');
+		if (languageTag == null) {
+			return "";
+		}
+		StringBuilder result = new StringBuilder(languageTag.getLanguage());
+
+		String variant = getVariant();
+
+		if (languageTag.getRegion() != null || !variant.isEmpty() || languageTag.getScript() != null || hasExtensions()) {
+			result.append('_');
+			result.append(getCountry());
+		}
+		if (!variant.isEmpty()) {
+			result.append('_');
+			result.append(variant);
+		}
+
+		if (languageTag.getScript() != null) {
+			result.append("_#");
+			result.append(languageTag.getScript());
+		}
+
+		if (hasExtensions()) {
+			result.append('_');
+			// check if we haven't '#' symbol added
+			if (languageTag.getScript() == null) {
+				result.append('#');
+			}
+			String[] extensions = languageTag.getExtensions();
+			for (String ext : extensions) {
+				result.append(ext).append('-');
+			}
+			result.deleteCharAt(result.length() - 1);
+		}
+
+		return result.toString();
 	}
 
 	public String toLanguageTag() {
-		if (languageTag == null) {
-			languageTag = to('-');
-		}
-		return languageTag;
+		return languageTag == null ? "und" : languageTag.toString();
 	}
 
 	public static Locale forLanguageTag(String languageTag) {
 		try {
 			LangTag tag = LangTag.parse(languageTag);
-			String language = nullToEmpty(tag.getLanguage());
-			String region = nullToEmpty(tag.getRegion());
-			String script = nullToEmpty(tag.getScript());
-			String[] variants = tag.getVariants();
-			String variant = variants == null || variants.length == 0 ? "" : variants[0];
-			return new Locale(language, region, script, variant);
+			return LocaleRegistry.lookup(tag).orElseGet(() -> new Locale(tag));
 		} catch (LangTagException e) {
-			LOGGER.error("Error while parse language tag {}: {}. Fallback to ROOT", languageTag, e.getMessage(), e);
-			return ROOT;
+			throw new IllegalArgumentException(e);
 		}
 	}
 
@@ -167,111 +225,16 @@ public final class Locale {
 		return str == null ? "" : str;
 	}
 
-	public String to(char delimeter) {
-		StringBuilder result = new StringBuilder();
-
-		if (!language.isEmpty()) {
-			result.append(language);
-		}
-
-		if (!script.isEmpty()) {
-			result.append(delimeter);
-			result.append(script);
-		}
-
-		if (!region.isEmpty()) {
-			result.append(delimeter);
-			result.append(region);
-		}
-
-		if (!variant.isEmpty()) {
-			result.append(delimeter);
-			result.append(variant);
-		}
-		return result.toString();
-	}
-
-	public final String getDisplayLanguage() {
-		return getDisplayLanguage(defaultLocale);
-	}
-
-	public String getDisplayLanguage(Locale inLocale) {
-		return language;
-	}
-
-	public String getDisplayScript() {
-		return getDisplayScript(defaultLocale);
-	}
-
-	public String getDisplayScript(Locale inLocale) {
-		return script;
-	}
-
-	public final String getDisplayCountry() {
-		return getDisplayCountry(defaultLocale);
-	}
-
-	public String getDisplayCountry(Locale inLocale) {
-		return region;
-	}
-
-	public final String getDisplayVariant() {
-		return getDisplayVariant(defaultLocale);
-	}
-
-	public String getDisplayVariant(Locale inLocale) {
-		return variant;
-	}
-
-	public final String getDisplayName() {
-		return getDisplayName(defaultLocale);
-	}
-
-	public String getDisplayName(Locale inLocale) {
-		return toString();
-	}
-
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((language == null) ? 0 : language.toLowerCase().hashCode());
-		result = prime * result + ((region == null) ? 0 : region.toLowerCase().hashCode());
-		result = prime * result + ((script == null) ? 0 : script.toLowerCase().hashCode());
-		result = prime * result + ((variant == null) ? 0 : variant.toLowerCase().hashCode());
-		return result;
+		return (languageTag == null ? "und" : languageTag).hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Locale other = (Locale) obj;
-		if (language == null) {
-			if (other.language != null)
-				return false;
-		} else if (!language.equalsIgnoreCase(other.language))
-			return false;
-		if (region == null) {
-			if (other.region != null)
-				return false;
-		} else if (!region.equalsIgnoreCase(other.region))
-			return false;
-		if (script == null) {
-			if (other.script != null)
-				return false;
-		} else if (!script.equalsIgnoreCase(other.script))
-			return false;
-		if (variant == null) {
-			if (other.variant != null)
-				return false;
-		} else if (!variant.equalsIgnoreCase(other.variant))
-			return false;
-		return true;
+		return obj != null
+				&& obj instanceof Locale
+				&& toLanguageTag().equals(((Locale) obj).toLanguageTag());
 	}
 
 }
