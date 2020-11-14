@@ -15,7 +15,7 @@ public class GwtTest extends GWTTestCase {
 	 */
 	@Override
 	public String getModuleName() {
-		return "org.jresearch.gwt.locale.module";
+		return "org.jresearch.gwt.locale.module_test";
 	}
 
 	@Test
