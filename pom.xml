@@ -67,13 +67,9 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.jresearch.gwt.languageTag</groupId>
-			<artifactId>org.jresearch.gwt.languageTag</artifactId>
+			<groupId>org.jresearch.gwt.locale</groupId>
+			<artifactId>org.jresearch.gwt.locale.languageTag</artifactId>
 			<version>${languageTag.ver}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.nimbusds</groupId>
-			<artifactId>lang-tag</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

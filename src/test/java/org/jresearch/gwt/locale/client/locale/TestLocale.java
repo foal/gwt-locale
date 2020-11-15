@@ -27,27 +27,161 @@
  */
 package org.jresearch.gwt.locale.client.locale;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
-import org.jresearch.gwt.locale.client.AbstractTest;
+import org.jresearch.gwt.locale.client.AbstractLocaleTest;
+import org.junit.Test;
 
 /**
  * Test Locale implementation in the browser
  */
-public class TestLocale extends AbstractTest {
+@SuppressWarnings({ "static-method", "nls" })
+public class TestLocale extends AbstractLocaleTest {
 
 	public void test_default() {
 		Locale locale = Locale.getDefault();
 		assertNotNull(locale);
-//		assertEquals("de", locale.getLanguage());
-//		assertEquals("DE", locale.getCountry());
-//		assertEquals("", locale.getVariant());
 	}
 
-	public void test_available() {
+	public void test_availableJavaConstant() {
 		Locale[] locales = Locale.getAvailableLocales();
 		assertNotNull(locales);
-		assertTrue(locales.length > 20);
+		List<Locale> localesList = Arrays.asList(locales);
+		assertTrue(localesList.contains(Locale.CANADA));
+		assertTrue(localesList.contains(Locale.CANADA_FRENCH));
+		assertTrue(localesList.contains(Locale.CHINA));
+		assertTrue(localesList.contains(Locale.CHINESE));
+		assertTrue(localesList.contains(Locale.ENGLISH));
+		assertTrue(localesList.contains(Locale.FRANCE));
+		assertTrue(localesList.contains(Locale.FRANCE));
+		assertTrue(localesList.contains(Locale.GERMAN));
+		assertTrue(localesList.contains(Locale.GERMANY));
+		assertTrue(localesList.contains(Locale.ITALIAN));
+		assertTrue(localesList.contains(Locale.ITALY));
+		assertTrue(localesList.contains(Locale.JAPAN));
+		assertTrue(localesList.contains(Locale.JAPANESE));
+		assertTrue(localesList.contains(Locale.KOREA));
+		assertTrue(localesList.contains(Locale.KOREAN));
+		assertTrue(localesList.contains(Locale.PRC));
+		assertTrue(localesList.contains(Locale.ROOT));
+		assertTrue(localesList.contains(Locale.SIMPLIFIED_CHINESE));
+		assertTrue(localesList.contains(Locale.TAIWAN));
+		assertTrue(localesList.contains(Locale.TRADITIONAL_CHINESE));
+		assertTrue(localesList.contains(Locale.UK));
+		assertTrue(localesList.contains(Locale.US));
+	}
+
+	public void test_forLanguageTag_rootForEmpty() {
+		Locale locale = Locale.forLanguageTag("");
+		assertEquals(Locale.ROOT, locale);
+	}
+
+	public void test_forLanguageTag_rootForUnd() {
+		Locale locale = Locale.forLanguageTag("und");
+		assertEquals(Locale.ROOT, locale);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void test_forLanguageTag_null() {
+		try {
+			Locale.forLanguageTag(null);
+			fail("Missing exception");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void test_new_null_lang() {
+		try {
+			new Locale(null);
+			fail("Missing exception");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void test_new_null_reg() {
+		try {
+			new Locale("null", null);
+			fail("Missing exception");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void test_new_null_var() {
+		try {
+			new Locale("null", "null", null);
+			fail("Missing exception");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void test_new_lang() {
+		try {
+			new Locale("null");
+			fail("Missing exception");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void test_new_reg() {
+		try {
+			new Locale("it", "null");
+			fail("Missing exception");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+	}
+
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void test_new_var() {
+		try {
+			new Locale("ru", "GB", "JP");
+			fail("Missing exception");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+	}
+
+	public void test_new_he() {
+		Locale locale = new Locale("he");
+		assertEquals("iw", locale.getLanguage());
+	}
+
+	public void test_new_yi() {
+		Locale locale = new Locale("yi");
+		assertEquals("ji", locale.getLanguage());
+	}
+
+	public void test_new_id() {
+		Locale locale = new Locale("id");
+		assertEquals("in", locale.getLanguage());
+	}
+
+	public void test_new_ja_JP_JP() {
+		Locale locale = new Locale("ja", "JP", "JP");
+		assertEquals("ja-JP-u-ca-japanese", locale.toLanguageTag());
+	}
+
+	public void test_new_th_TH_TH() {
+		Locale locale = new Locale("th", "TH", "TH");
+		assertEquals("th-TH-u-nu-thai", locale.toLanguageTag());
 	}
 
 }

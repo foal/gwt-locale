@@ -5,8 +5,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-import com.nimbusds.langtag.LangTag;
-import com.nimbusds.langtag.LangTagException;
+import org.jresearch.gwt.locale.langtag.LangTag;
+import org.jresearch.gwt.locale.langtag.LangTagException;
 
 @SuppressWarnings("nls")
 public class LocaleRegistry {

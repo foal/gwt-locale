@@ -4,11 +4,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jresearch.gwt.locale.client.locale.LocaleRegistry;
+import org.jresearch.gwt.locale.langtag.LangTag;
+import org.jresearch.gwt.locale.langtag.LangTagException;
+import org.jresearch.gwt.locale.langtag.ReadOnlyLangTag;
 
 import com.google.gwt.i18n.client.LocaleInfo;
-import com.nimbusds.langtag.LangTag;
-import com.nimbusds.langtag.LangTagException;
-import com.nimbusds.langtag.ReadOnlyLangTag;
 
 @SuppressWarnings("nls")
 public final class Locale {

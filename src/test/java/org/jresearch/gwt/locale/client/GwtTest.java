@@ -8,7 +8,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 public class GwtTest extends GWTTestCase {
 
-	private static Logger LOGGER = LoggerFactory.getLogger("com.google.gwt.junit.client.GWTTestCase");
+	private static Logger LOGGER = LoggerFactory.getLogger(GwtTest.class);
 
 	/**
 	 * Must refer to a valid module that sources this class.
@@ -27,4 +27,5 @@ public class GwtTest extends GWTTestCase {
 		LOGGER.info("info message: {}", param);
 		LOGGER.warn("warn message: {}", param);
 	}
+
 }
