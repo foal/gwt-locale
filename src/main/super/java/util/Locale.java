@@ -13,6 +13,14 @@ import com.google.gwt.i18n.client.LocaleInfo;
 @SuppressWarnings("nls")
 public final class Locale {
 
+	private static Map<String, String> LEGACY_ISO = new HashMap<>();
+
+	static {
+		LEGACY_ISO.put("he", "iw");
+		LEGACY_ISO.put("yi", "ji");
+		LEGACY_ISO.put("id", "in");
+	}
+
 	/** Constant from JDK */
 	public static final Locale ENGLISH = LocaleRegistry.register("en");
 	public static final Locale FRENCH = LocaleRegistry.register("fr");
@@ -59,49 +67,63 @@ public final class Locale {
 		try {
 			languageTag = LangTag.parse(langTag.toString());
 		} catch (LangTagException e) {
-			throw new IllegalArgumentException(e);
+			throw new IllegalArgumentException("Wrong parameters, langTag " + langTag + ": " + e.getMessage(), e);
 		}
 	}
 
-	public Locale(String language, String region, String script, String variant) {
-		if (language == null || script == null || region == null || variant == null) {
-			throw new NullPointerException("You can't initialize Locale with null values");
+	public Locale(String language, String region, String variant) {
+		if (language == null || region == null || variant == null) {
+			throw new IllegalArgumentException("You can't initialize Locale with null values, lang " + language + ", region " + region + ", variant " + variant);
 		}
 		if (language.isEmpty()) {
 			languageTag = null;
 		} else {
+			String lang = legacyIsoSupport(language);
 			try {
-				LangTag lg = new LangTag(language);
-				if (!region.isEmpty()) {
-					lg.setRegion(region);
+				String tag = legacyCombinationsCheck(lang, region, variant);
+				if (tag != null) {
+					languageTag = LangTag.parse(tag);
+				} else {
+					LangTag lg = new LangTag(lang);
+					if (!region.isEmpty()) {
+						lg.setRegion(region);
+					}
+					if (!variant.isEmpty()) {
+						lg.setVariants(variant);
+					}
+					languageTag = lg;
 				}
-				if (!script.isEmpty()) {
-					lg.setScript(script);
-				}
-				if (!variant.isEmpty()) {
-					lg.setVariants(variant);
-				}
-				languageTag = lg;
 			} catch (LangTagException e) {
-				throw new IllegalArgumentException(e);
+				throw new IllegalArgumentException("Wrong parameters, lang " + language + ", region " + region + ", variant " + variant + ": " + e.getMessage(), e);
 			}
 		}
 	}
 
-	public Locale(String language, String region, String script) {
-		this(language, region, script, "");
-	}
-
 	public Locale(String language, String region) {
-		this(language, region, "", "");
+		this(language, region, "");
 	}
 
 	public Locale(String language) {
-		this(language, "", "", "");
+		this(language, "", "");
 	}
 
 	public static Locale getDefault() {
 		return defaultLocale;
+	}
+
+	private static String legacyIsoSupport(String language) {
+		return LEGACY_ISO.getOrDefault(language, language);
+	}
+
+	private static String legacyCombinationsCheck(String language, String region, String variant) {
+		if ("ja".equalsIgnoreCase(language) && "JP".equalsIgnoreCase(region) && "JP".equalsIgnoreCase(variant)) {
+			// japanese calendar case: ja_JP_JP -> ja-JP-u-ca-japanese
+			return "ja-JP-u-ca-japanese";
+		} else if ("th".equalsIgnoreCase(language) && "th".equalsIgnoreCase(region) && "th".equalsIgnoreCase(variant)) {
+			// thai numbersystem case: th_TH_TH -> th-TH-u-nu-thai
+			return "th-TH-u-nu-thai";
+		}
+		return null;
 	}
 
 	public static void setDefault(Locale locale) {
@@ -213,11 +235,18 @@ public final class Locale {
 	}
 
 	public static Locale forLanguageTag(String languageTag) {
+		if (languageTag == null) {
+			throw new IllegalArgumentException("Language tag can't be a null.");
+		}
+		// Special case for ROOT locale
+		if (languageTag.isEmpty() || languageTag.equalsIgnoreCase("und")) {
+			return ROOT;
+		}
 		try {
 			LangTag tag = LangTag.parse(languageTag);
 			return LocaleRegistry.lookup(tag).orElseGet(() -> new Locale(tag));
 		} catch (LangTagException e) {
-			throw new IllegalArgumentException(e);
+			throw new IllegalArgumentException("Language tag: " + languageTag + " is not correct: " + e.getMessage(), e);
 		}
 	}
 
