@@ -5,8 +5,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+import org.jresearch.gwt.locale.langtag.ImmutableLangTag;
 import org.jresearch.gwt.locale.langtag.LangTag;
-import org.jresearch.gwt.locale.langtag.LangTagException;
 
 @SuppressWarnings("nls")
 public class LocaleRegistry {
@@ -23,21 +23,13 @@ public class LocaleRegistry {
 		} else if (language.isEmpty()) {
 			return reg.computeIfAbsent(null, t -> new Locale(""));
 		}
-		try {
-			LangTag langTag = new LangTag(language);
-			if (!region.isEmpty()) {
-				langTag.setRegion(region);
-			}
-			if (!script.isEmpty()) {
-				langTag.setScript(script);
-			}
-			if (!variant.isEmpty()) {
-				langTag.setVariants(variant);
-			}
-			return register(langTag);
-		} catch (LangTagException e) {
-			throw new IllegalArgumentException(e);
-		}
+		ImmutableLangTag langTag = ImmutableLangTag.builder()
+				.primaryLanguage(language)
+				.region(region)
+				.script(script)
+				.addVariants(variant)
+				.build();
+		return register(langTag);
 	}
 
 	public static Locale register(String language, String region, String script) {

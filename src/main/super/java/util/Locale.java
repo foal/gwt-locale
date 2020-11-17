@@ -1,12 +1,10 @@
 package java.util;
 
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.jresearch.gwt.locale.client.locale.LocaleRegistry;
+import org.jresearch.gwt.locale.langtag.ImmutableLangTag;
 import org.jresearch.gwt.locale.langtag.LangTag;
-import org.jresearch.gwt.locale.langtag.LangTagException;
-import org.jresearch.gwt.locale.langtag.ReadOnlyLangTag;
 
 import com.google.gwt.i18n.client.LocaleInfo;
 
@@ -47,7 +45,7 @@ public final class Locale {
 
 	private static Locale defaultLocale = ROOT;
 
-	private final ReadOnlyLangTag languageTag;
+	private final ImmutableLangTag languageTag;
 
 	static {
 		String localeName = LocaleInfo.getCurrentLocale().getLocaleName();
@@ -64,11 +62,7 @@ public final class Locale {
 	}
 
 	private Locale(LangTag langTag) {
-		try {
-			languageTag = LangTag.parse(langTag.toString());
-		} catch (LangTagException e) {
-			throw new IllegalArgumentException("Wrong parameters, langTag " + langTag + ": " + e.getMessage(), e);
-		}
+		languageTag = ImmutableLangTag.copyOf(langTag);
 	}
 
 	public Locale(String language, String region, String variant) {
@@ -79,22 +73,14 @@ public final class Locale {
 			languageTag = null;
 		} else {
 			String lang = legacyIsoSupport(language);
-			try {
-				String tag = legacyCombinationsCheck(lang, region, variant);
-				if (tag != null) {
-					languageTag = LangTag.parse(tag);
-				} else {
-					LangTag lg = new LangTag(lang);
-					if (!region.isEmpty()) {
-						lg.setRegion(region);
-					}
-					if (!variant.isEmpty()) {
-						lg.setVariants(variant);
-					}
-					languageTag = lg;
-				}
-			} catch (LangTagException e) {
-				throw new IllegalArgumentException("Wrong parameters, lang " + language + ", region " + region + ", variant " + variant + ": " + e.getMessage(), e);
+			String tag = legacyCombinationsCheck(lang, region, variant);
+			if (tag != null) {
+				languageTag = LangTag.parse(tag);
+			} else {
+				languageTag = ImmutableLangTag.builder().primaryLanguage(lang)
+						.region(region)
+						.addVariants(variant)
+						.build();
 			}
 		}
 	}
@@ -135,60 +121,48 @@ public final class Locale {
 	}
 
 	public String getLanguage() {
-		return languageTag == null ? "" : languageTag.getLanguage();
+		return languageTag == null ? "" : languageTag.language();
 	}
 
 	public String getScript() {
-		return languageTag == null ? "" : nullToEmpty(languageTag.getScript());
+		return languageTag == null ? "" : languageTag.script();
 	}
 
 	public String getCountry() {
-		return languageTag == null ? "" : nullToEmpty(languageTag.getRegion());
+		return languageTag == null ? "" : languageTag.region();
 	}
 
 	public String getVariant() {
 		if (languageTag == null) {
 			return "";
 		}
-		String[] variants = languageTag.getVariants();
-		return variants == null || variants.length == 0 ? "" : variants[0];
+		return languageTag.variants().stream().findFirst().orElse("");
 	}
 
 	public boolean hasExtensions() {
-		return languageTag != null && languageTag.getExtensions() != null && languageTag.getExtensions().length != 0;
+		return languageTag != null && !languageTag.extensions().isEmpty();
 	}
 
 	public Locale stripExtensions() {
 		if (hasExtensions()) {
-			try {
-				LangTag tag = LangTag.parse(languageTag.toString());
-				tag.setExtensions((String[]) null);
-				LocaleRegistry.lookup(tag).orElseGet(() -> new Locale(tag));
-			} catch (LangTagException e) {
-				throw new IllegalStateException(e);
-			}
+			LangTag tag = languageTag.withExtensions();
+			LocaleRegistry.lookup(tag).orElseGet(() -> new Locale(tag));
 		}
 		return this;
 	}
 
 	public String getExtension(char key) {
-		if (hasExtensions()) {
-			return Stream.of(languageTag.getExtensions())
-					.filter(e -> e.charAt(0) == key)
-					.findAny()
-					.orElse(null);
-		}
-		return null;
+		return languageTag.extensions().stream()
+				.filter(e -> e.charAt(0) == key)
+				.findAny()
+				.orElse(null);
 	}
 
 	@SuppressWarnings("boxing")
 	public Set<Character> getExtensionKeys() {
-		if (hasExtensions()) {
-			return Stream.of(languageTag.getExtensions())
-					.map(e -> e.charAt(0))
-					.collect(Collectors.toSet());
-		}
-		return Collections.emptySet();
+		return languageTag.extensions().stream()
+				.map(e -> e.charAt(0))
+				.collect(Collectors.toSet());
 	}
 
 	@Override
@@ -196,31 +170,32 @@ public final class Locale {
 		if (languageTag == null) {
 			return "";
 		}
-		StringBuilder result = new StringBuilder(languageTag.getLanguage());
+		StringBuilder result = new StringBuilder(languageTag.language());
 
 		String variant = getVariant();
 
-		if (languageTag.getRegion() != null || !variant.isEmpty() || languageTag.getScript() != null || hasExtensions()) {
+		if (!languageTag.region().isEmpty() || !variant.isEmpty() || !languageTag.script().isEmpty() || hasExtensions()) {
 			result.append('_');
 			result.append(getCountry());
 		}
+
 		if (!variant.isEmpty()) {
 			result.append('_');
 			result.append(variant);
 		}
 
-		if (languageTag.getScript() != null) {
+		if (!languageTag.script().isEmpty()) {
 			result.append("_#");
-			result.append(languageTag.getScript());
+			result.append(languageTag.script());
 		}
 
 		if (hasExtensions()) {
 			result.append('_');
 			// check if we haven't '#' symbol added
-			if (languageTag.getScript() == null) {
+			if (languageTag.script().isEmpty()) {
 				result.append('#');
 			}
-			String[] extensions = languageTag.getExtensions();
+			List<String> extensions = languageTag.extensions();
 			for (String ext : extensions) {
 				result.append(ext).append('-');
 			}
@@ -242,16 +217,8 @@ public final class Locale {
 		if (languageTag.isEmpty() || languageTag.equalsIgnoreCase("und")) {
 			return ROOT;
 		}
-		try {
-			LangTag tag = LangTag.parse(languageTag);
-			return LocaleRegistry.lookup(tag).orElseGet(() -> new Locale(tag));
-		} catch (LangTagException e) {
-			throw new IllegalArgumentException("Language tag: " + languageTag + " is not correct: " + e.getMessage(), e);
-		}
-	}
-
-	private static String nullToEmpty(String str) {
-		return str == null ? "" : str;
+		LangTag tag = LangTag.parse(languageTag);
+		return LocaleRegistry.lookup(tag).orElseGet(() -> new Locale(tag));
 	}
 
 	@Override
