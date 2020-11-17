@@ -12,14 +12,14 @@
 
 	<name>JRS: GWT emulation for java.util.Locale class</name>
 	<description>JRS: GWT emulation for java.util.Locale class</description>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<url>https://github.com/foal/gwt-locale</url>
 
 	<scm>
 		<connection>scm:hg:https://helixteamhub.cloud/JRS/projects/gwtTime/repositories/mercurial/gwt-locale</connection>
 		<developerConnection>scm:hg:ssh://hth@helixteamhub.cloud/JRS/projects/gwtTime/repositories/mercurial/gwt-locale</developerConnection>
 		<url>https://github.com/foal/gwt-locale</url>
-		<tag>v1.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<build>
 		<!-- define build -->
@@ -61,7 +61,7 @@
 	<!-- ==================================================================== -->
 	<properties>
 		<languageTag.ver>1.0.0</languageTag.ver>
-		<gwt-slf4j.ver>1.0.0</gwt-slf4j.ver>
+		<gwt-slf4j.ver>1.0.1</gwt-slf4j.ver>
 	</properties>
 	<dependencies>
 		<dependency>
