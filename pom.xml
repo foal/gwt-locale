@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.jresearch</groupId>
@@ -14,14 +12,14 @@
 
 	<name>JRS: GWT emulation for java.util.Locale class</name>
 	<description>JRS: GWT emulation for java.util.Locale class</description>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<url>https://github.com/foal/gwt-locale</url>
 
 	<scm>
 		<connection>scm:hg:https://helixteamhub.cloud/JRS/projects/gwtTime/repositories/mercurial/gwt-locale</connection>
 		<developerConnection>scm:hg:ssh://hth@helixteamhub.cloud/JRS/projects/gwtTime/repositories/mercurial/gwt-locale</developerConnection>
 		<url>https://github.com/foal/gwt-locale</url>
-		<tag>HEAD</tag>
+		<tag>v1.0.0</tag>
 	</scm>
 	<build>
 		<!-- define build -->
@@ -62,7 +60,7 @@
 
 	<!-- ==================================================================== -->
 	<properties>
-		<languageTag.ver>1.0.0-SNAPSHOT</languageTag.ver>
+		<languageTag.ver>1.0.0</languageTag.ver>
 		<gwt-slf4j.ver>1.0.0</gwt-slf4j.ver>
 	</properties>
 	<dependencies>
