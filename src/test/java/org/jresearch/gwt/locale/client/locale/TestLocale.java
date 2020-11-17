@@ -130,7 +130,7 @@ public class TestLocale extends AbstractLocaleTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void test_new_lang() {
 		try {
-			new Locale("null");
+			new Locale("nullnulln");
 			fail("Missing exception");
 		} catch (IllegalArgumentException e) {
 			// expected
