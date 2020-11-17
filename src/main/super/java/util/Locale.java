@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import org.jresearch.gwt.locale.client.locale.LocaleRegistry;
 import org.jresearch.gwt.locale.langtag.ImmutableLangTag;
+import org.jresearch.gwt.locale.langtag.ImmutableLangTag.Builder;
 import org.jresearch.gwt.locale.langtag.LangTag;
 
 import com.google.gwt.i18n.client.LocaleInfo;
@@ -77,10 +78,13 @@ public final class Locale {
 			if (tag != null) {
 				languageTag = LangTag.parse(tag);
 			} else {
-				languageTag = ImmutableLangTag.builder().primaryLanguage(lang)
-						.region(region)
-						.addVariants(variant)
-						.build();
+				Builder builder = ImmutableLangTag.builder()
+						.primaryLanguage(lang)
+						.region(region);
+				if (!variant.isEmpty()) {
+					builder.addVariants(variant);
+				}
+				languageTag = builder.build();
 			}
 		}
 	}
