@@ -50,7 +50,7 @@
 					<moduleName>org.jresearch.gwt.locale.module</moduleName>
 					<moduleShortName>gwtJreLocale</moduleShortName>
 					<relocateSuperSource>true</relocateSuperSource>
-					<logLevel>debug</logLevel>
+					<logLevel>info</logLevel>
 					<testArgs>
 						<testArg>-testMethodTimeout</testArg>
 						<testArg>30</testArg>
