@@ -18,7 +18,7 @@ There is also the separate GWT module [GWT-locale-CLDR](https://github.com/foal/
 ### Using
 
 * Add the following project dependency to pom.xml
-```
+```xml
 <dependency>
 	<groupId>org.jresearch.gwt.locale</groupId>
 	<artifactId>org.jresearch.gwt.locale</artifactId>
@@ -42,7 +42,7 @@ There is also the separate GWT module [GWT-locale-CLDR](https://github.com/foal/
 This project currently maps to the contents of release Java SE 8u20.
 
 ### Releases
-Available in the [Maven Central repository](https://search.maven.org/search?q=a:org.jresearch.gwt.locale)
+Available in the [Maven Central repository](https://search.maven.org/search?q=g:org.jresearch.gwt.locale)
 
 ### Support
 GitHub [issues](https://github.com/foal/gwt-locale/issues) and [pull requests](https://github.com/foal/gwt-locale/pulls) should be used when you want to help advance the project.
