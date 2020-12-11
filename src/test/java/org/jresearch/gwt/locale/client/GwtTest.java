@@ -4,19 +4,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gwt.junit.client.GWTTestCase;
-
-public class GwtTest extends GWTTestCase {
+public class GwtTest extends AbstractLocaleTest {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(GwtTest.class);
-
-	/**
-	 * Must refer to a valid module that sources this class.
-	 */
-	@Override
-	public String getModuleName() {
-		return "org.jresearch.gwt.locale.module_test";
-	}
 
 	@Test
 	public void testLogging() {
