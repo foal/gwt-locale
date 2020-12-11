@@ -22,7 +22,7 @@ There is also the separate GWT module [GWT-locale-CLDR](https://github.com/foal/
 <dependency>
 	<groupId>org.jresearch.gwt.locale</groupId>
 	<artifactId>org.jresearch.gwt.locale</artifactId>
-    <version>1.0.0</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 * Add `<inherits name="org.jresearch.gwt.locale.module"/>` to your module.gwt.xml, if you use gwt-maven-plugin form Thomas Broyer (https://github.com/tbroyer/gwt-maven-plugin) it will be done automatically
