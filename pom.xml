@@ -59,7 +59,7 @@
 
 	<!-- ==================================================================== -->
 	<properties>
-		<languageTag.ver>1.0.0</languageTag.ver>
+		<languageTag.ver>1.0.1-SNAPSHOT</languageTag.ver>
 		<gwt-slf4j.ver>1.0.1</gwt-slf4j.ver>
 	</properties>
 	<dependencies>
