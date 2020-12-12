@@ -28,7 +28,7 @@ There is also the separate GWT module [GWT-locale-CLDR](https://github.com/foal/
 * Add `<inherits name="org.jresearch.gwt.locale.module"/>` to your module.gwt.xml, if you use gwt-maven-plugin form Thomas Broyer (https://github.com/tbroyer/gwt-maven-plugin) it will be done automatically
 
 ### Unimplemented or partial implemented features
-* Compatibility with J2CL
+* **java.util.Locale implementation may clash with original GWT implementation**. See [dicussion on Google Groups](https://groups.google.com/forum/#!msg/Google-Web-Toolkit/D0I1-Oao_V8/k5FEBrxNBQAJ) and similar [issue](https://github.com/gwtproject/gwt/issues/9682) with gwt-commons-lang3 (the class will separate to another project)* Compatibility with J2CL
 * Updates from Java 9-14
 * `getDisplay` methods
 * some specific Language Tag methods
