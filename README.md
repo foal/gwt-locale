@@ -58,7 +58,7 @@ Pull requests must _not_ be copied from the JDK, because the GPL license is inco
 * check out this project
 * `mvn clean install`
 * The project use the parent pom located on Sonatype snapshot repository.
-```
+```xml
 <repositories>
     <repository>
         <id>oss.sonatype.org-snapshot</id>
