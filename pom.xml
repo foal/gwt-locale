@@ -37,7 +37,7 @@
 				<!-- To correct work of GWT Super source -->
 				<configuration>
 					<ignoredUnusedDeclaredDependencies>
-						<ignoredUnusedDeclaredDependency>org.jresearch.gwt.languageTag:org.jresearch.gwt.languageTag</ignoredUnusedDeclaredDependency>
+						<ignoredUnusedDeclaredDependency>org.jresearch.locale.languageTag:org.jresearch.locale.languageTag.gwt</ignoredUnusedDeclaredDependency>
 					</ignoredUnusedDeclaredDependencies>
 				</configuration>
 			</plugin>
@@ -67,6 +67,11 @@
 		<dependency>
 			<groupId>org.jresearch.locale.languageTag</groupId>
 			<artifactId>org.jresearch.locale.languageTag.gwt</artifactId>
+			<version>${languageTag.ver}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jresearch.locale.languageTag</groupId>
+			<artifactId>org.jresearch.locale.languageTag</artifactId>
 			<version>${languageTag.ver}</version>
 		</dependency>
 		<dependency>
