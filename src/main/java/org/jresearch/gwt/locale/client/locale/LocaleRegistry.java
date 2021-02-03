@@ -5,9 +5,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-import org.jresearch.gwt.locale.langtag.ImmutableLangTag;
-import org.jresearch.gwt.locale.langtag.ImmutableLangTag.Builder;
-import org.jresearch.gwt.locale.langtag.LangTag;
+import org.jresearch.locale.langtag.ImmutableLangTag;
+import org.jresearch.locale.langtag.LangTag;
+import org.jresearch.locale.langtag.ImmutableLangTag.Builder;
 
 @SuppressWarnings("nls")
 public class LocaleRegistry {

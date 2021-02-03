@@ -3,9 +3,9 @@ package java.util;
 import java.util.stream.Collectors;
 
 import org.jresearch.gwt.locale.client.locale.LocaleRegistry;
-import org.jresearch.gwt.locale.langtag.ImmutableLangTag;
-import org.jresearch.gwt.locale.langtag.ImmutableLangTag.Builder;
-import org.jresearch.gwt.locale.langtag.LangTag;
+import org.jresearch.locale.langtag.ImmutableLangTag;
+import org.jresearch.locale.langtag.LangTag;
+import org.jresearch.locale.langtag.ImmutableLangTag.Builder;
 
 import com.google.gwt.i18n.client.LocaleInfo;
 
