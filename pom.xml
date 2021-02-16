@@ -25,11 +25,83 @@
 		<!-- define build -->
 		<plugins>
 			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-emu</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>src/main/java/org/jresearch/gwt/emu</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+							<outputDirectory>${basedir}/target/generated-sources/annotations</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<executions>
+					<execution>
+						<id>repackage-emu</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+						<configuration>
+							<filesToInclude>${basedir}/target/generated-sources/annotations/**/*.java</filesToInclude>
+							<replacements>
+								<replacement>
+									<token>org\.jresearch\.gwt\.emu\.</token>
+									<value></value>
+								</replacement>
+							</replacements>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<shadeSourcesContent>true</shadeSourcesContent>
+							<relocations>
+								<relocation>
+									<pattern>org.jresearch.gwt.emu.java.util</pattern>
+									<shadedPattern>java.util</shadedPattern>
+								</relocation>
+							</relocations>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>8</source>
 					<target>8</target>
+					<!-- <showWarnings>true</showWarnings> -->
+					<!-- <annotationProcessorPaths>
+						<path>
+							<groupId>org.jresearch.gwt.tool.emu.apt</groupId>
+							<artifactId>org.jresearch.gwt.tool.emu.apt.processor</artifactId>
+							<version>${gwt-tool-jre-apt.ver}</version>
+						</path>
+					</annotationProcessorPaths> -->
 				</configuration>
 			</plugin>
 			<plugin>
@@ -38,6 +110,7 @@
 				<configuration>
 					<ignoredUnusedDeclaredDependencies>
 						<ignoredUnusedDeclaredDependency>org.jresearch.locale.languageTag:org.jresearch.locale.languageTag.gwt</ignoredUnusedDeclaredDependency>
+						<ignoredUnusedDeclaredDependency>org.jresearch.gwt.tool.emu.apt:org.jresearch.gwt.tool.emu.apt.annotation</ignoredUnusedDeclaredDependency>
 					</ignoredUnusedDeclaredDependencies>
 				</configuration>
 			</plugin>
@@ -62,8 +135,14 @@
 		<languageTag.ver>1.1.1</languageTag.ver>
 		<gwt-slf4j.ver>1.0.1</gwt-slf4j.ver>
 		<!-- <gwt.version>2.9.0</gwt.version> -->
+		<gwt-tool-jre-apt.ver>1.0.0-SNAPSHOT</gwt-tool-jre-apt.ver>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.jresearch.gwt.tool.emu.apt</groupId>
+			<artifactId>org.jresearch.gwt.tool.emu.apt.annotation</artifactId>
+			<version>${gwt-tool-jre-apt.ver}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.jresearch.locale.languageTag</groupId>
 			<artifactId>org.jresearch.locale.languageTag.gwt</artifactId>

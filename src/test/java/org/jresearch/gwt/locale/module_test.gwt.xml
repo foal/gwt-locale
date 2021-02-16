@@ -1,5 +1,0 @@
-<module rename-to="gwtJreLocaleTest">
-  <inherits name="org.dominokit.domino.logger.Logging"/>
-  <inherits name="org.jresearch.gwt.locale.module"/>
-  <set-property name="domino.slf4j.logging.level" value="TRACE"/>
-</module>
