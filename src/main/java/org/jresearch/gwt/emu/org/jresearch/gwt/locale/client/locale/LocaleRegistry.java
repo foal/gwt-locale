@@ -5,11 +5,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.jresearch.gwt.emu.java.util.Locale;
+import org.jresearch.gwt.tool.emu.apt.annotation.Wrap;
 import org.jresearch.locale.langtag.ImmutableLangTag;
 import org.jresearch.locale.langtag.ImmutableLangTag.Builder;
 import org.jresearch.locale.langtag.LangTag;
 
-//@Wrap("org.jresearch.gwt.emu")
+@Wrap("org.jresearch.gwt.emu")
 @SuppressWarnings("nls")
 public class LocaleRegistry {
 
