@@ -112,10 +112,10 @@
 
 	<!-- ==================================================================== -->
 	<properties>
-		<languageTag.ver>1.1.1</languageTag.ver>
+		<languageTag.ver>1.1.2-SNAPSHOT</languageTag.ver>
 		<gwt-slf4j.ver>1.0.1</gwt-slf4j.ver>
 		<!-- <gwt.version>2.9.0</gwt.version> -->
-		<gwt-tool-jre-apt.ver>1.0.0</gwt-tool-jre-apt.ver>
+		<gwt-tool-jre-apt.ver>1.0.1-SNAPSHOT</gwt-tool-jre-apt.ver>
 	</properties>
 	<dependencies>
 		<dependency>
