@@ -41,7 +41,7 @@
 									<filtering>false</filtering>
 								</resource>
 							</resources>
-							<outputDirectory>${basedir}/target/generated-sources/annotations</outputDirectory>
+							<outputDirectory>${basedir}/target/generated-sources/annotations/org/jresearch/gwt/eml</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -61,7 +61,7 @@
 							<replacements>
 								<replacement>
 									<token>org\.jresearch\.gwt\.emu\.</token>
-									<value></value>
+									<value />
 								</replacement>
 							</replacements>
 						</configuration>
@@ -69,7 +69,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>8</source>
@@ -98,9 +97,8 @@
 				<groupId>net.ltgt.gwt.maven</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<configuration>
-					<moduleName>org.jresearch.gwt.locale.module</moduleName>
+					<moduleName>org.jresearch.gwt.eml.module</moduleName>
 					<moduleShortName>gwtJreLocale</moduleShortName>
-					<relocateSuperSource>true</relocateSuperSource>
 					<testArgs>
 						<testArg>-testMethodTimeout</testArg>
 						<testArg>30</testArg>

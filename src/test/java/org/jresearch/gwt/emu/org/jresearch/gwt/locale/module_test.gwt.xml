@@ -1,6 +1,6 @@
 <module rename-to="gwtJreLocaleTest">
-  <inherits name="org.dominokit.domino.logger.Logging"/>
-  <inherits name="org.jresearch.gwt.emu.java.util.emuLocale" />
-   <inherits name="org.jresearch.locale.langtag.module"/>
-  <set-property name="domino.slf4j.logging.level" value="TRACE"/>
+	<inherits name="org.dominokit.domino.logger.Logging" />
+	<inherits name="org.jresearch.gwt.emu.emuLocale" />
+	<inherits name="org.jresearch.locale.langtag.module" />
+	<set-property name="domino.slf4j.logging.level" value="TRACE" />
 </module>
