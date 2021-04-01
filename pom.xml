@@ -21,6 +21,87 @@
 		<url>https://github.com/foal/gwt-locale</url>
 		<tag>HEAD</tag>
 	</scm>
+	<properties>
+		<languageTag.ver>1.1.2-SNAPSHOT</languageTag.ver>
+		<gwt-slf4j.ver>1.0.2</gwt-slf4j.ver>
+		<!-- <gwt.version>2.9.0</gwt.version> -->
+		<gwt-tool-jre-apt.ver>1.0.1-SNAPSHOT</gwt-tool-jre-apt.ver>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jresearch.gwt.tool.emu.apt</groupId>
+				<artifactId>org.jresearch.gwt.tool.emu.apt.annotation</artifactId>
+				<version>${gwt-tool-jre-apt.ver}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jresearch.locale.languageTag</groupId>
+				<artifactId>org.jresearch.locale.languageTag.bom</artifactId>
+				<version>${languageTag.ver}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.dominokit</groupId>
+				<artifactId>domino-slf4j-logger</artifactId>
+				<version>${gwt-slf4j.ver}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.jresearch.gwt.tool.emu.apt</groupId>
+			<artifactId>org.jresearch.gwt.tool.emu.apt.annotation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jresearch.locale.languageTag</groupId>
+			<artifactId>org.jresearch.locale.languageTag.gwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jresearch.locale.languageTag</groupId>
+			<artifactId>org.jresearch.locale.languageTag</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-client</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.dominokit</groupId>
+			<artifactId>domino-slf4j-logger</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	<build>
 		<!-- define build -->
 		<plugins>
@@ -41,7 +122,7 @@
 									<filtering>false</filtering>
 								</resource>
 							</resources>
-							<outputDirectory>${basedir}/target/generated-sources/annotations/org/jresearch/gwt/eml</outputDirectory>
+							<outputDirectory>${basedir}/target/generated-sources/annotations/org/jresearch/gwt/eml/locale</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -97,7 +178,7 @@
 				<groupId>net.ltgt.gwt.maven</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<configuration>
-					<moduleName>org.jresearch.gwt.eml.module</moduleName>
+					<moduleName>org.jresearch.gwt.eml.locale.module</moduleName>
 					<moduleShortName>gwtJreLocale</moduleShortName>
 					<testArgs>
 						<testArg>-testMethodTimeout</testArg>
@@ -109,68 +190,4 @@
 	</build>
 
 	<!-- ==================================================================== -->
-	<properties>
-		<languageTag.ver>1.1.2-SNAPSHOT</languageTag.ver>
-		<gwt-slf4j.ver>1.0.1</gwt-slf4j.ver>
-		<!-- <gwt.version>2.9.0</gwt.version> -->
-		<gwt-tool-jre-apt.ver>1.0.1-SNAPSHOT</gwt-tool-jre-apt.ver>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.jresearch.gwt.tool.emu.apt</groupId>
-			<artifactId>org.jresearch.gwt.tool.emu.apt.annotation</artifactId>
-			<version>${gwt-tool-jre-apt.ver}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jresearch.locale.languageTag</groupId>
-			<artifactId>org.jresearch.locale.languageTag.gwt</artifactId>
-			<version>${languageTag.ver}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jresearch.locale.languageTag</groupId>
-			<artifactId>org.jresearch.locale.languageTag</artifactId>
-			<version>${languageTag.ver}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-dev</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>websocket-client</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.dominokit</groupId>
-			<artifactId>domino-slf4j-logger</artifactId>
-			<version>${gwt-slf4j.ver}</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 </project>
