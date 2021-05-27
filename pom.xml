@@ -122,7 +122,7 @@
 									<filtering>false</filtering>
 								</resource>
 							</resources>
-							<outputDirectory>${basedir}/target/generated-sources/annotations/org/jresearch/gwt/eml/locale</outputDirectory>
+							<outputDirectory>${project.build.directory}/generated-sources/annotations/org/jresearch/gwt/eml/locale</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -138,7 +138,7 @@
 							<goal>replace</goal>
 						</goals>
 						<configuration>
-							<filesToInclude>${basedir}/target/generated-sources/annotations/**/*.java</filesToInclude>
+							<filesToInclude>${project.build.directory}/generated-sources/annotations/**/*.java</filesToInclude>
 							<replacements>
 								<replacement>
 									<token>org\.jresearch\.gwt\.emu\.</token>
@@ -150,10 +150,28 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>remove-emu</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>${project.build.directory}/classes/org/jresearch/gwt/emu</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>8</source>
-					<target>8</target>
 					<showWarnings>true</showWarnings>
 					<annotationProcessorPaths>
 						<path>
