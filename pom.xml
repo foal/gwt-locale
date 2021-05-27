@@ -208,7 +208,7 @@
 				<plugin>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<configuration>
-						<excludePackageNames>org.jresearch.gwt.eml</excludePackageNames>
+						<excludePackageNames>org.jresearch.gwt.eml.*</excludePackageNames>
 					</configuration>
 				</plugin>
 		</plugins>
