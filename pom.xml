@@ -21,6 +21,7 @@
 		<url>https://github.com/foal/gwt-locale</url>
 		<tag>HEAD</tag>
 	</scm>
+
 	<properties>
 		<languageTag.ver>1.1.2-SNAPSHOT</languageTag.ver>
 		<gwt-slf4j.ver>1.0.2</gwt-slf4j.ver>
@@ -204,6 +205,12 @@
 					</testArgs>
 				</configuration>
 			</plugin>
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<excludePackageNames>org.jresearch.gwt.eml</excludePackageNames>
+					</configuration>
+				</plugin>
 		</plugins>
 	</build>
 
