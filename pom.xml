@@ -111,7 +111,7 @@
                 <executions>
                     <execution>
                         <id>copy-emu</id>
-                        <phase>validate</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -134,7 +134,7 @@
                 <executions>
                     <execution>
                         <id>repackage-emu</id>
-                        <phase>validate</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>replace</goal>
                         </goals>
