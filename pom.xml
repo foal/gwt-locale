@@ -216,6 +216,7 @@
                 <configuration>
                     <moduleName>org.jresearch.gwt.eml.locale.module</moduleName>
                     <moduleShortName>gwtJreLocale</moduleShortName>
+                    <relocateSuperSource>true</relocateSuperSource>
                     <testArgs>
                         <testArg>-testMethodTimeout</testArg>
                         <testArg>30</testArg>
