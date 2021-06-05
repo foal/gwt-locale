@@ -113,7 +113,7 @@
                         <id>copy-emu</id>
                         <phase>initialize</phase>
                         <goals>
-                            <goal>copy-resources</goal>
+                            <goal>default-copy-resources</goal>
                         </goals>
                         <configuration>
                             <overwrite>true</overwrite>
@@ -133,7 +133,7 @@
                 <artifactId>replacer</artifactId>
                 <executions>
                     <execution>
-                        <id>repackage-emu</id>
+                        <id>default-repackage-emu</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>replace</goal>
