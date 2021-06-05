@@ -123,7 +123,7 @@
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
-                            <outputDirectory>${project.basedir}/src/main/super</outputDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/gwt</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -139,7 +139,7 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <filesToInclude>${project.basedir}/src/main/super/**/*.java</filesToInclude>
+                            <filesToInclude>${project.build.directory}/generated-sources/gwt/**/*.java</filesToInclude>
                             <replacements>
                                 <replacement>
                                     <token>org\.jresearch\.gwt\.emu\.</token>
@@ -160,6 +160,10 @@
                         <goals>
                             <goal>add-super-sources</goal>
                         </goals>
+                        <configuration>
+                            <superSourceDirectory>${project.build.directory}/generated-sources/gwt</superSourceDirectory>
+                            <relocateSuperSource>true</relocateSuperSource>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -212,7 +216,6 @@
                 <configuration>
                     <moduleName>org.jresearch.gwt.eml.locale.module</moduleName>
                     <moduleShortName>gwtJreLocale</moduleShortName>
-                    <relocateSuperSource>true</relocateSuperSource>
                     <testArgs>
                         <testArg>-testMethodTimeout</testArg>
                         <testArg>30</testArg>
