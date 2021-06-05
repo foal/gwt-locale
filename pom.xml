@@ -111,7 +111,7 @@
                 <executions>
                     <execution>
                         <id>copy-emu</id>
-                        <phase>prepare-package</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -123,7 +123,7 @@
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
-                            <outputDirectory>${project.build.directory}/generated-sources/gwt</outputDirectory>
+                            <outputDirectory>${project.basedir}/src/main/super</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -134,35 +134,18 @@
                 <executions>
                     <execution>
                         <id>repackage-emu</id>
-                        <phase>prepare-package</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <filesToInclude>${project.build.directory}/generated-sources/gwt/**/*.java</filesToInclude>
+                            <filesToInclude>${project.basedir}/src/main/super/**/*.java</filesToInclude>
                             <replacements>
                                 <replacement>
                                     <token>org\.jresearch\.gwt\.emu\.</token>
                                     <value/>
                                 </replacement>
                             </replacements>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>net.ltgt.gwt.maven</groupId>
-                <artifactId>gwt-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>super-emu</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-super-sources</goal>
-                        </goals>
-                        <configuration>
-                            <superSourceDirectory>${project.build.directory}/generated-sources/gwt</superSourceDirectory>
-                            <relocateSuperSource>true</relocateSuperSource>
                         </configuration>
                     </execution>
                 </executions>
