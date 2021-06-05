@@ -110,10 +110,10 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy-emu</id>
+                        <id>default-copy-emu</id>
                         <phase>initialize</phase>
                         <goals>
-                            <goal>default-copy-resources</goal>
+                            <goal>copy-resources</goal>
                         </goals>
                         <configuration>
                             <overwrite>true</overwrite>
