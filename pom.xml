@@ -110,8 +110,8 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>default-copy-emu</id>
-                        <phase>initialize</phase>
+                        <id>copy-emu</id>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -133,8 +133,8 @@
                 <artifactId>replacer</artifactId>
                 <executions>
                     <execution>
-                        <id>default-repackage-emu</id>
-                        <phase>initialize</phase>
+                        <id>repackage-emu</id>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>replace</goal>
                         </goals>
@@ -147,6 +147,19 @@
                                 </replacement>
                             </replacements>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>super-emu</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>add-super-sources</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
