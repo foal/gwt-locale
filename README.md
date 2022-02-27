@@ -1,4 +1,5 @@
-![Maven Central](https://img.shields.io/maven-central/v/org.jresearch.gwt.locale/org.jresearch.gwt.locale?style=plastic)
+[![Maven Central](https://img.shields.io/maven-central/v/org.jresearch.gwt.locale/org.jresearch.gwt.locale)](https://mvnrepository.com/artifact/org.jresearch.gwt.locale/org.jresearch.gwt.locale)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=foal_gwt-locale&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=foal_gwt-locale)
 
 ## GWT java.util.Locale emulation
 
