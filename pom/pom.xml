@@ -23,6 +23,7 @@
     </scm>
 
     <properties>
+        <java.version>8</java.version>
         <languageTag.ver>1.1.2-SNAPSHOT</languageTag.ver>
         <gwt-slf4j.ver>1.0.2</gwt-slf4j.ver>
 		<!-- <gwt.version>2.9.0</gwt.version> -->
