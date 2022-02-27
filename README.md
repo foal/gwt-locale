@@ -1,4 +1,6 @@
-![Maven Central](https://img.shields.io/maven-central/v/org.jresearch.gwt.locale/org.jresearch.gwt.locale?style=plastic)
+[![Maven Central](https://img.shields.io/maven-central/v/org.jresearch.gwt.locale/org.jresearch.gwt.locale)](https://mvnrepository.com/artifact/org.jresearch.gwt.locale/org.jresearch.gwt.locale)
+[![Build](https://github.com/foal/gwt-locale/actions/workflows/BuildSnapshot.yml/badge.svg)](https://github.com/foal/gwt-locale/actions/workflows/BuildSnapshot.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=foal_gwt-locale&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=foal_gwt-locale)
 
 ## GWT java.util.Locale emulation
 
@@ -22,7 +24,7 @@ There is also the separate GWT module [GWT-locale-CLDR](https://github.com/foal/
 <dependency>
 	<groupId>org.jresearch.gwt.locale</groupId>
 	<artifactId>org.jresearch.gwt.locale</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.4</version>
 </dependency>
 ```
 * Add `<inherits name="org.jresearch.gwt.locale.module"/>` to your module.gwt.xml, if you use gwt-maven-plugin form Thomas Broyer (https://github.com/tbroyer/gwt-maven-plugin) it will be done automatically
