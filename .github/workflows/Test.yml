@@ -19,7 +19,6 @@ jobs:
         gpg-private-key: ${{ secrets.GPG_KEY }} 
     - uses: s4u/maven-settings-action@v2.5.0
       with:
-        sonatypeSnapshots: true
         servers: |
           [
           {
@@ -38,6 +37,6 @@ jobs:
         git config --global user.name 'foal' 
         git config --global user.email 'stas@jresearch.org'
     - name: Verion update check
-      run: mvn versions:resolve-ranges versions:update-properties -Dincludes=com.jresearchsoft*:*,org.jresearch*:* -B
+      run: mvn versions:resolve-ranges versions:update-properties -Dincludes=com.jresearchsoft*:*,org.jresearch*:* -B -X
       working-directory: pom
 
