@@ -12,21 +12,21 @@
 
     <name>JRS: GWT emulation for java.util.Locale class</name>
     <description>JRS: GWT emulation for java.util.Locale class</description>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.5</version>
     <url>https://github.com/foal/gwt-locale</url>
 
     <scm>
         <developerConnection>scm:git:https://github.com/foal/gwt-time-apt.git</developerConnection>
         <url>https://github.com/foal/gwt-locale</url>
-        <tag>HEAD</tag>
+        <tag>v1.0.5</tag>
     </scm>
 
     <properties>
         <java.version>11</java.version>
-        <languageTag.ver>1.1.2-SNAPSHOT</languageTag.ver>
+        <languageTag.ver>1.1.1</languageTag.ver>
         <gwt-slf4j.ver>1.0.2</gwt-slf4j.ver>
 		<!-- <gwt.version>2.9.0</gwt.version> -->
-        <gwt-tool-jre-apt.ver>1.0.3-SNAPSHOT</gwt-tool-jre-apt.ver>
+        <gwt-tool-jre-apt.ver>1.0.3</gwt-tool-jre-apt.ver>
     </properties>
     <dependencyManagement>
         <dependencies>
