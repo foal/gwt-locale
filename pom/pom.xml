@@ -16,7 +16,7 @@
     <url>https://github.com/foal/gwt-locale</url>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/foal/gwt-time-apt.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/foal/gwt-locale.git</developerConnection>
         <url>https://github.com/foal/gwt-locale</url>
         <tag>HEAD</tag>
     </scm>
